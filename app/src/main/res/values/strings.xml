@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Iplant</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Name</string>
+    <string name="lastWater">Last Water</string>
+    <string name="humidity">Humidity</string>
+    <string name="title_activity_qr_code" translatable="false">QRCode</string>
+    <string name="plant_name">Plant name</string>
+    <string name="plant_image">Plant image</string>
+    <string name="add_photo">Add a photo of your plant</string>
+    <string name="name_your_plant">Name your plant</string>
+    <string name="plant_type">Type</string>
+    <string name="equipment_code">Equipment code</string>
+    <string name="save">Save</string>
+    <string name="invalid_equipment_code">invalid equipment code!</string>
+    <string name="sky">sky</string>
+    <string name="weather">weather</string>
+    <string name="turn_on">Turn on</string>
+    <string name="turn_off">Turn off</string>
+    <string name="your_plants_need_care">Your plants need care</string>
+    <string name="I_want_water">I want water</string>
+    <string name="someone_is_drowning">Someone is drowning</string>
+    <string name="someone_watered_your_plants">Someone watered your plants</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Iplant</string>
+    <string name="name">Nome</string>
+    <string name="plant_name">Nome da planta</string>
+    <string name="plant_type">Tipo</string>
+    <string name="action_settings">Configurações</string>
+    <string name="lastWater">Última aguada</string>
+    <string name="humidity">Umidade</string>
+    <string name="plant_image">Imagem da planta</string>
+    <string name="add_photo">Adicione uma foto da sua planta</string>
+    <string name="name_your_plant">Nomeie sua planta</string>
+    <string name="equipment_code">Código do equipamento</string>
+    <string name="save">salvar</string>
+    <string name="invalid_equipment_code">Código de equipamento inválido!</string>
+    <string name="your_plants_need_care">Suas plantas precisam de cuidado</string>
+    <string name="I_want_water">Quero água</string>
+    <string name="someone_is_drowning">Alguem está se afogando</string>
+    <string name="turn_on">Ligar</string>
+    <string name="turn_off">Desligar</string>
+    <string name="weather">clima</string>
+    <string name="sky">céu</string>
+</resources>

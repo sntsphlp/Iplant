@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "7182568215",
+    "firebase_url": "https://watercloud-a7b86.firebaseio.com",
+    "project_id": "watercloud-a7b86",
+    "storage_bucket": "watercloud-a7b86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7182568215:android:e7818a76d9889e85",
+        "android_client_info": {
+          "package_name": "com.br.iotquintal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7182568215-htrbr3jkki5iohklodd934en2c09907f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.br.iotquintal",
+            "certificate_hash": "942450a1c9c79c7d9e6bfc4c31790642bb92d407"
+          }
+        },
+        {
+          "client_id": "7182568215-afvnl80i9nc7bc46qfdv7q3ipd2pgef1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.br.iotquintal",
+            "certificate_hash": "bea08abbdbcca2c743962552593272acb5d583af"
+          }
+        },
+        {
+          "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwF4pnUPFwSGenGcAk7BwG4tGnBExx8A0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7182568215:android:33ba94bf76c3bee2",
+        "android_client_info": {
+          "package_name": "puc.iot.com.iplant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7182568215-9ukb3glcel7vqngpsahpogm4smk06acg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "puc.iot.com.iplant",
+            "certificate_hash": "9aeea4735ffa7383fcbbf545cf51733bb905ff9e"
+          }
+        },
+        {
+          "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwF4pnUPFwSGenGcAk7BwG4tGnBExx8A0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7182568215-dtiq9bq0gq23rlc7187n779s4bh6vi78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
