@@ -27,4 +27,6 @@
     <string name="I_want_water">I want water</string>
     <string name="someone_is_drowning">Someone is drowning</string>
     <string name="someone_watered_your_plants">Someone watered your plants</string>
+    <string name="login">Login</string>
+    <string name="background">Background</string>
 </resources>

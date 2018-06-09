@@ -29,7 +29,7 @@
             android:label="@string/title_activity_qr_code"
             android:theme="@style/AppThemeGreen.NoActionBar" />
         <activity android:name=".PlantRegistrationActivity" />
-        <activity android:name=".PlantActivity"></activity>
+        <activity android:name=".PlantActivity" />
     </application>
 
 </manifest>
