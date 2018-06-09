@@ -3,9 +3,11 @@ package puc.iot.com.iplant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +17,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView mRecyclerViewPlantsList;
+    private static final String TAG = "MainActivity";
+    private RecyclerView mRecyclerViewPlantsList;
+    private DatabaseReference mDatabase;
+    private FirebaseUser user;
+    private PlantsAdapter mPlantsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +43,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         FloatingActionButton fab = findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +65,9 @@ public class MainActivity extends AppCompatActivity
 
         mRecyclerViewPlantsList = findViewById(R.id.recyclerViewPlantsList);
         mRecyclerViewPlantsList.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewPlantsList.setAdapter(new PlantsAdapter(getPlats()));
+        mPlantsAdapter =new PlantsAdapter(getApplicationContext());
+        mRecyclerViewPlantsList.setAdapter(mPlantsAdapter);
+        getPlats();
     }
 
     @Override
@@ -100,10 +116,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_exit) {
+            FirebaseAuth.getInstance().signOut();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -111,15 +125,46 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public List<Plant> getPlats() {
-        List<Plant> plantsList = new ArrayList<>();
-        plantsList.add(new Plant("1","Abacate"));
-        plantsList.add(new Plant("2","Abóbora"));
-        plantsList.add(new Plant("3","Beterraba"));
-        plantsList.add(new Plant("4","Figueira"));
-        plantsList.add(new Plant("5","Kiwi"));
+    public void getPlats() {
+        DatabaseReference userPlants = UtilsFireBase.getUserPlantsReference(mDatabase,user.getUid());
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Plant newPlant = dataSnapshot.getValue(Plant.class);
+                mPlantsAdapter.add(newPlant);
+            }
 
-        return plantsList;
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Plant newPlant = dataSnapshot.getValue(Plant.class);
+                assert newPlant != null;
+                mPlantsAdapter.change(newPlant);
+                float newHumidity = newPlant.getHumidity();
+                Toast.makeText(getApplicationContext(),"Himidade: " + newHumidity,Toast.LENGTH_LONG).show();
+                if (newHumidity<Plant.DRY)
+                    Notifications.needTurnOnWater(getApplicationContext(),newPlant.getId(),newPlant.getName());
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Plant newPlant = dataSnapshot.getValue(Plant.class);
+                newPlant.getId();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Plant newPlant = dataSnapshot.getValue(Plant.class);
+                newPlant.getId();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+                Toast.makeText(getApplicationContext(), "Failed to load plants.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+        userPlants.addChildEventListener(childEventListener);
     }
 
 }

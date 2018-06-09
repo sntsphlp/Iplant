@@ -14,6 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class PlantRegistrationActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_QR_CODE = 0,REQUEST_CODE_PLANT_PHOTO=1;
@@ -24,16 +29,28 @@ public class PlantRegistrationActivity extends AppCompatActivity {
     private Button buttonSave,buttonCancel;
     private Bitmap mPhotoBitmap;
     private CoordinatorLayout content;
+    private DatabaseReference mDatabase;
+    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_registration);
         editTextEquipmentCode = findViewById(R.id.editTextEquipmentCode);
+        editTextName = findViewById(R.id.editTextName);
         imageViewScanCode = findViewById(R.id.imageViewScanCode);
         imageViewPlantPhoto = findViewById(R.id.imageViewPlantPhoto);
+        aCTextViewPlantType= findViewById(R.id.aCTextViewPlantType);
         buttonSave= findViewById(R.id.buttonSave);
         buttonCancel= findViewById(R.id.buttonCancel);
         content = findViewById(R.id.content);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null)
+            userId = user.getUid();
+        else {
+            Toast.makeText(getApplicationContext(),R.string.login_error,Toast.LENGTH_LONG).show();
+            finish();
+        }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         imageViewScanCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,25 +79,41 @@ public class PlantRegistrationActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validate()){
                     save();
-                }
             }
         });
     }
 
-    private boolean validate() {
-        if (editTextEquipmentCode.getText().length()<3){
-            Snackbar.make(content,getText(R.string.invalid_equipment_code),Snackbar.LENGTH_LONG).show();
-            return false;
-        }else if (editTextName.getText().length()<1){
-            Snackbar.make(content,getText(R.string.name_your_plant),Snackbar.LENGTH_LONG).show();
-            return false;
-        }else return true;
+    private void save() {
+        String equipmentCode = editTextEquipmentCode.getText().toString();
+        String plantName = editTextName.getText().toString();
+        String plantType = aCTextViewPlantType.getText().toString();
+        if (equipmentCode.length()==0){
+            makeSnackBar(R.string.equipment_code_is_required);
+            return;
+        }
+        if (equipmentCode.length()<8){
+            makeSnackBar(R.string.wrong_equipment_code);
+            return;
+        }
+        if (plantName.length()==0){
+            makeSnackBar(R.string.plant_name_is_required);
+            return;
+        }
+        Plant plant = new Plant(equipmentCode,plantName);
+        if (plantType.length()>0){
+            plant.setType(plantType);
+        }
+        plant.setHumidity(0f);
+        UtilsFireBase.getPlantsReference(mDatabase).child(equipmentCode).child(userId).setValue(userId);
+        UtilsFireBase.getUserPlantsReference(mDatabase,userId).child(equipmentCode).setValue(plant);
+
     }
 
-    private void save() {
-
+    private void makeSnackBar(int value) {
+        Snackbar mySnackBar = Snackbar.make(findViewById(R.id.content),
+                value, Snackbar.LENGTH_SHORT);
+        mySnackBar.show();
     }
 
     @Override

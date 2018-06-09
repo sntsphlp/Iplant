@@ -54,4 +54,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/AppTheme.Text.Small.White"
         app:layout_constraintTop_toTopOf="@+id/textViewLastWater" />
+
 </android.support.constraint.ConstraintLayout>

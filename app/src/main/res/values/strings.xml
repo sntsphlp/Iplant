@@ -28,5 +28,11 @@
     <string name="someone_is_drowning">Someone is drowning</string>
     <string name="someone_watered_your_plants">Someone watered your plants</string>
     <string name="login">Login</string>
-    <string name="background">Background</string>
+    <string name="background" translatable="false">Background</string>
+    <string name="plant_registration">Plant registration</string>
+    <string name="login_error">Login error</string>
+    <string name="wrong_equipment_code">Wrong equipamento code</string>
+    <string name="equipment_code_is_required">Equipment code is required</string>
+    <string name="plant_name_is_required">Plant name is required</string>
+    <string name="dry">Dry</string>
 </resources>

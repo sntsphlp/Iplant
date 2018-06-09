@@ -20,4 +20,8 @@
     <string name="turn_off">Desligar</string>
     <string name="weather">clima</string>
     <string name="sky">céu</string>
+    <string name="login">Login</string>
+    <string name="plant_registration">Cadastro de plantas</string>
+    <string name="someone_watered_your_plants">Alguém regou suas plantas</string>
+    <string name="login_error">Erro de login</string>
 </resources>

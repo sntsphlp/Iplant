@@ -5,9 +5,13 @@ import java.util.Date;
 class Plant {
 
     public final static String ID="id";
+    public final static float DRY=40.0f, NORMAL = 200.0f , HUMID=400.0f, VERY_HUMID=500.0f;
 
     private String id, name, type,species,imageUrl;
     private Date lastWater;
+    private float humidity;
+
+    public Plant() { }
 
     public Plant(String id, String name) {
         this.id = id;
@@ -21,6 +25,13 @@ class Plant {
         this.species = species;
         this.imageUrl = imageUrl;
         this.lastWater = lastWater;
+    }
+
+    public Plant(String id, String name, String imageUrl, float humidity) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.humidity = humidity;
     }
 
     public String getId() {
@@ -62,4 +73,25 @@ class Plant {
         this.lastWater = lastWater;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(float humidity) {
+        this.humidity = humidity;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Plant plant = (Plant) obj;
+        return getId()==plant.getId();
+    }
 }

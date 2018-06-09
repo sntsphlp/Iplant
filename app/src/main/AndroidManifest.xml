@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeGreen">
-        <activity android:name=".LaunchActivity">
+        <activity android:name=".LaunchActivity"
+            android:theme="@style/AppTheme.NoActionBar.fitsSystemWindows">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +24,15 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppThemeGreen.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".QRCodeScannerActivity"
             android:label="@string/title_activity_qr_code"
-            android:theme="@style/AppThemeGreen.NoActionBar" />
-        <activity android:name=".PlantRegistrationActivity" />
-        <activity android:name=".PlantActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PlantRegistrationActivity"
+            android:label="@string/plant_registration"/>
+        <activity android:name=".PlantActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

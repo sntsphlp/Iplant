@@ -4,104 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlantActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/coordinatorLayout">
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/sky"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sky" />
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp">
 
-    <ImageView
-        android:id="@+id/imageView2"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        layout="@layout/content_plant"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sky"
-        android:contentDescription="@string/weather"
-        android:scaleType="fitEnd"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/normal2" />
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="nome"
-            android:textAppearance="@style/AppTheme.Text.Big.Black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/AppTheme.Text.Small.Black"
-            android:text="tipo"
-            app:layout_constraintStart_toStartOf="@+id/textViewName"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName" />
-
-        <TextView
-            android:id="@+id/textViewLastWater"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Rregada"
-            android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintStart_toStartOf="@+id/textViewType"
-            app:layout_constraintTop_toBottomOf="@+id/textViewType" />
-
-        <TextView
-            android:id="@+id/textViewStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Status"
-            android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintStart_toStartOf="@+id/textViewLastWater"
-            app:layout_constraintTop_toBottomOf="@+id/textViewLastWater" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintStart_toStartOf="@+id/textViewStatus"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="ToggleButton"
-            android:textOff="@string/turn_on"
-            android:textOn="@string/turn_off"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp" />
 
 </android.support.constraint.ConstraintLayout>
