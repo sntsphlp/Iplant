@@ -36,26 +36,14 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="nome"
-            android:textAppearance="@style/AppTheme.Text.Big.Black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/textViewType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="tipo"
             android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintStart_toStartOf="@+id/textViewName"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="24dp" />
 
         <TextView
             android:id="@+id/textViewLastWater"
@@ -76,16 +64,6 @@
             android:textAppearance="@style/AppTheme.Text.Small.Black"
             app:layout_constraintStart_toStartOf="@+id/textViewLastWater"
             app:layout_constraintTop_toBottomOf="@+id/textViewLastWater" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintStart_toStartOf="@+id/textViewStatus"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
 
         <ToggleButton
             android:id="@+id/toggleButton"

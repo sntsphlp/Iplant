@@ -3,23 +3,20 @@ package puc.iot.com.iplant;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +48,11 @@ class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
             public void onClick(View v) {
                 Context context = holder.itemView.getContext();
                 Intent intent = new Intent(context,PlantActivity.class);
-                intent.putExtra("id",plant.getId());
+                intent.putExtra(Plant._ID,plant.getId());
+                intent.putExtra(Plant.NAME,plant.getName());
+                intent.putExtra(Plant.HUMIDITY,plant.getHumidity());
+                intent.putExtra(Plant.IS_OPEN_TAP,plant.isOpen_tap());
+
                 context.startActivity(intent);
             }
         });
@@ -100,14 +101,17 @@ class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
     public void add(String newPlantId) {
         Plant plant = new Plant(newPlantId);
         mPlantsList.add(plant);
-        notifyItemInserted(mPlantsList.size() - 1);
+        int position = mPlantsList.size() - 1;
+        getPlatValues(position);
+        notifyItemInserted(position);
     }
 
     public void remove(String removedPlantId) {
         Plant plant = new Plant(removedPlantId);
         mPlantsList.indexOf(plant);
     }
-    public void getPlatValues(final int position) {
+
+    private void getPlatValues(final int position) {
 
         Plant plant = mPlantsList.get(position);
         DatabaseReference userPlants = UtilsFireBase.getPlantReference(plant.getId());

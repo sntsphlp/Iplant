@@ -34,7 +34,7 @@ public final class Notifications {
         mBuilder.setStyle(inboxStyle);
 
         Intent resultIntent = new Intent(context, PlantActivity.class);
-        resultIntent.putExtra(Plant.ID,contentText);
+        resultIntent.putExtra(Plant._ID,contentText);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(PlantActivity.class);
         stackBuilder.addNextIntent(resultIntent);
@@ -61,7 +61,7 @@ public final class Notifications {
                         .setContentTitle(context.getString(titleID))
                         .setContentText(contentText);
         Intent resultIntent = new Intent(context, PlantActivity.class);
-        resultIntent.putExtra(Plant.ID,plantId);
+        resultIntent.putExtra(Plant._ID,plantId);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(PlantActivity.class);
         stackBuilder.addNextIntent(resultIntent);

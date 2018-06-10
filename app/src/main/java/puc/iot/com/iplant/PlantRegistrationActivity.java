@@ -138,8 +138,8 @@ public class PlantRegistrationActivity extends AppCompatActivity {
             plant.setType(plantType);
         }
         plant.setHumidity(0f);
-        UtilsFireBase.getPlantsReference().child(equipmentCode).child(userId).setValue(userId);
-        UtilsFireBase.getUserPlantsReference(userId).child(equipmentCode).setValue(plant);
+        UtilsFireBase.getPlantsReference().child(equipmentCode).setValue(plant);
+        UtilsFireBase.getUserPlantsReference(userId).child(equipmentCode).setValue(equipmentCode);
         if (mTypes!=null){
             if (!mTypes.contains(plantType))
             UtilsFireBase.getPlantsTypesReference().push().setValue(plantType);

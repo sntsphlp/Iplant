@@ -4,8 +4,12 @@ import java.util.Date;
 
 class Plant {
 
-    public final static String ID="id";
-    public final static float DRY=40.0f, NORMAL = 200.0f , HUMID=400.0f, VERY_HUMID=500.0f;
+    public final static String _ID ="id";
+    public final static int DRY =40, NORMAL = 200 , HUMID=400, VERY_HUMID=500;
+    public static final String NAME = "name";
+    public static final String HUMIDITY = "HUMIDITY";
+    public static final String IS_OPEN_TAP = "is_open_tap";
+    private static final int WATERING = 0;
 
     private String id, name, type,species,imageUrl;
     private Date lastWater;
@@ -20,22 +24,6 @@ class Plant {
     public Plant(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Plant(String id, String name, String type, String species, String imageUrl, Date lastWater) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.species = species;
-        this.imageUrl = imageUrl;
-        this.lastWater = lastWater;
-    }
-
-    public Plant(String id, String name, String imageUrl, float humidity) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.humidity = humidity;
     }
 
     public String getId() {
@@ -106,7 +94,16 @@ class Plant {
         Plant plant = (Plant) obj;
         return getId()==plant.getId();
     }
-
+    public int getStatus() {
+        if (isOpen_tap()){
+            return WATERING;
+        }else if (getHumidity()<DRY){
+            return DRY;
+        }else if (getHumidity()<NORMAL){
+            return NORMAL;
+        } else
+            return HUMID;
+    }
     public void update(Plant newPlant) {
         id = newPlant.getId();
         name = newPlant.getName();
@@ -114,6 +111,7 @@ class Plant {
         species = newPlant.getSpecies();
         imageUrl = newPlant.getImageUrl();
         lastWater = newPlant.getLastWater();
+        humidity= newPlant.getHumidity();
         open_tap = newPlant.isOpen_tap();
     }
 }
