@@ -5,11 +5,11 @@ import java.util.Date;
 class Plant {
 
     public final static String _ID ="id";
-    public final static int DRY =40, NORMAL = 200 , HUMID=400, VERY_HUMID=500;
+    public final static int DRY =40, NORMAL = 200 , HUMID=400;
     public static final String NAME = "name";
     public static final String HUMIDITY = "HUMIDITY";
     public static final String IS_OPEN_TAP = "is_open_tap";
-    public static final int WATERING = 0;
+    public static final int WATERING_DRY = -1, WATERING_NORMAL =-2,WATERING_HUMID=-3 ;
 
     private String id, name, type,species,imageUrl;
     private Date lastWater;
@@ -95,14 +95,18 @@ class Plant {
         return getId()==plant.getId();
     }
     public int getStatus() {
-        if (isOpen_tap()){
-            return WATERING;
+        if (isOpen_tap()&&getHumidity()>HUMID){
+            return WATERING_HUMID;
+        }else if (isOpen_tap()&&getHumidity()<DRY){
+            return WATERING_DRY;
+        }else if (isOpen_tap()){
+            return WATERING_NORMAL;
         }else if (getHumidity()<DRY){
             return DRY;
-        }else if (getHumidity()<NORMAL){
-            return NORMAL;
-        } else
+        }else if (getHumidity()>HUMID){
             return HUMID;
+        } else
+            return NORMAL;
     }
     public void update(Plant newPlant) {
         id = newPlant.getId();

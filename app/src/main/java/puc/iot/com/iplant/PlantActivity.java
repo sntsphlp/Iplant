@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,19 @@ public class PlantActivity extends AppCompatActivity {
 
         getIntentValues();
         getPlatValues();
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    mPlant.setOpen_tap(true);
+                else
+                    mPlant.setOpen_tap(false);
+                UtilsFireBase.getPlantReference(mPlant.getId())
+                        .child("open_tap")
+                        .setValue(mPlant.isOpen_tap());
+                update();
+            }
+        });
     }
 
     private void getIntentValues() {
@@ -107,9 +121,11 @@ public class PlantActivity extends AppCompatActivity {
         }else if (status==Plant.NORMAL){
             imageViewGround.setImageResource(R.drawable.normal_ground);
         }else if (status==Plant.HUMID){
-            imageViewGround.setImageResource(R.drawable.desert_ground);
-        }else if (status==Plant.WATERING){
-            imageViewGround.setImageResource(R.drawable.desert_ground);
+            imageViewGround.setImageResource(R.drawable.humid_ground);
+        }else if (status==Plant.WATERING_NORMAL){
+            imageViewGround.setImageResource(R.drawable.water_ground);
+        }else if (status==Plant.WATERING_HUMID){
+            imageViewGround.setImageResource(R.drawable.humid_ground);
         }
     }
 }
