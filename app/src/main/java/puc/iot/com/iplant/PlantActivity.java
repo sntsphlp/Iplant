@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -19,10 +20,11 @@ import java.util.Objects;
 
 public class PlantActivity extends AppCompatActivity {
 
-    private TextView textViewName,textViewType,textViewLastWater,textViewStatus;
+    private TextView textViewType,textViewLastWater,textViewStatus;
     private ToggleButton toggleButton;
     private Plant mPlant;
     private Toolbar toolbar;
+    private ImageView imageViewGround;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +32,14 @@ public class PlantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plant);
 
         toolbar = findViewById(R.id.toolbar);
-        textViewName = findViewById(R.id.textViewName);
         textViewType = findViewById(R.id.textViewType);
         textViewLastWater = findViewById(R.id.textViewLastWater);
         textViewStatus = findViewById(R.id.textViewStatus);
         toggleButton = findViewById(R.id.toggleButton);
+        imageViewGround= findViewById(R.id.imageViewGround);
 
         getIntentValues();
+        getPlatValues();
     }
 
     private void getIntentValues() {
@@ -99,6 +102,14 @@ public class PlantActivity extends AppCompatActivity {
         return "Implementar";
     }
     private void setBackGround(int status){
-
+        if (status==Plant.DRY){
+            imageViewGround.setImageResource(R.drawable.desert_ground);
+        }else if (status==Plant.NORMAL){
+            imageViewGround.setImageResource(R.drawable.normal_ground);
+        }else if (status==Plant.HUMID){
+            imageViewGround.setImageResource(R.drawable.desert_ground);
+        }else if (status==Plant.WATERING){
+            imageViewGround.setImageResource(R.drawable.desert_ground);
+        }
     }
 }

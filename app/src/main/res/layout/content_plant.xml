@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/sky" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewGround"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/weather"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/normal2" />
+        app:srcCompat="@drawable/normal_ground" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -39,11 +39,12 @@
             android:id="@+id/textViewType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="tipo"
             android:textAppearance="@style/AppTheme.Text.Small.Black"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="24dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewLastWater"

@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/normal2"
+        app:srcCompat="@drawable/normal_ground"
         android:focusable="false"
         android:contentDescription="@string/background" />
 

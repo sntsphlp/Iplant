@@ -9,7 +9,7 @@ class Plant {
     public static final String NAME = "name";
     public static final String HUMIDITY = "HUMIDITY";
     public static final String IS_OPEN_TAP = "is_open_tap";
-    private static final int WATERING = 0;
+    public static final int WATERING = 0;
 
     private String id, name, type,species,imageUrl;
     private Date lastWater;
