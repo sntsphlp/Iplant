@@ -126,35 +126,30 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void getPlats() {
-        DatabaseReference userPlants = UtilsFireBase.getUserPlantsReference(mDatabase,user.getUid());
+        DatabaseReference userPlants = UtilsFireBase.getUserPlantsReference(user.getUid());
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Plant newPlant = dataSnapshot.getValue(Plant.class);
-                mPlantsAdapter.add(newPlant);
+                //Plant newPlant = dataSnapshot.getValue(Plant.class);
+                //mPlantsAdapter.add(newPlant);
+
+                String newPlantId = dataSnapshot.getValue(String.class);
+                mPlantsAdapter.add(newPlantId);
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Plant newPlant = dataSnapshot.getValue(Plant.class);
-                assert newPlant != null;
-                mPlantsAdapter.change(newPlant);
-                float newHumidity = newPlant.getHumidity();
-                Toast.makeText(getApplicationContext(),"Himidade: " + newHumidity,Toast.LENGTH_LONG).show();
-                if (newHumidity<Plant.DRY)
-                    Notifications.needTurnOnWater(getApplicationContext(),newPlant.getId(),newPlant.getName());
-            }
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Plant newPlant = dataSnapshot.getValue(Plant.class);
-                newPlant.getId();
+                String newPlantId = dataSnapshot.getValue(String.class);
+                mPlantsAdapter.remove(newPlantId);
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Plant newPlant = dataSnapshot.getValue(Plant.class);
-                newPlant.getId();
+                int a;
+                a=0;
             }
 
             @Override

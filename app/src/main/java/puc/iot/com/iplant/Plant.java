@@ -10,9 +10,13 @@ class Plant {
     private String id, name, type,species,imageUrl;
     private Date lastWater;
     private float humidity;
+    private boolean open_tap;
 
-    public Plant() { }
+    public Plant() {}
 
+    public Plant(String id) {
+        this.id = id;
+    }
     public Plant(String id, String name) {
         this.id = id;
         this.name = name;
@@ -89,9 +93,27 @@ class Plant {
         this.humidity = humidity;
     }
 
+    public boolean isOpen_tap() {
+        return open_tap;
+    }
+
+    public void setOpen_tap(boolean open_tap) {
+        this.open_tap = open_tap;
+    }
+
     @Override
     public boolean equals(Object obj) {
         Plant plant = (Plant) obj;
         return getId()==plant.getId();
+    }
+
+    public void update(Plant newPlant) {
+        id = newPlant.getId();
+        name = newPlant.getName();
+        type = newPlant.getType();
+        species = newPlant.getSpecies();
+        imageUrl = newPlant.getImageUrl();
+        lastWater = newPlant.getLastWater();
+        open_tap = newPlant.isOpen_tap();
     }
 }

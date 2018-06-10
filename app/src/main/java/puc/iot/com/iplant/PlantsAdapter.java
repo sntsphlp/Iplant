@@ -3,13 +3,22 @@ package puc.iot.com.iplant;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +26,13 @@ import java.util.List;
 class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
 
     private List<Plant> mPlantsList;
+    private List<String> mIdsList;
     private Context context;
 
-    public  PlantsAdapter(Context context, List<Plant> mPlantsList) {
-        this.context = context;
-        this.mPlantsList = mPlantsList;
-    }
     public  PlantsAdapter(Context context) {
         this.context = context;
-        this.mPlantsList = new ArrayList<>();
+        mPlantsList = new ArrayList<>();
+        mIdsList = new ArrayList<>();
     }
 
     @NonNull
@@ -65,13 +72,8 @@ class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
         return mPlantsList.size();
     }
 
-    public void change(Plant plant) {
-        int i = mPlantsList.indexOf(plant);
-        if (i>=0) {
-            mPlantsList.get(i).setHumidity(plant.getHumidity());
-            notifyItemChanged(i);
-        }
-    }
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewPlantName,textViewLastWater,textViewHumidity;
@@ -92,5 +94,36 @@ class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
             mPlantsList.add(plant);
             notifyItemInserted(mPlantsList.size() - 1);
         }
+    }
+
+
+    public void add(String newPlantId) {
+        Plant plant = new Plant(newPlantId);
+        mPlantsList.add(plant);
+        notifyItemInserted(mPlantsList.size() - 1);
+    }
+
+    public void remove(String removedPlantId) {
+        Plant plant = new Plant(removedPlantId);
+        mPlantsList.indexOf(plant);
+    }
+    public void getPlatValues(final int position) {
+
+        Plant plant = mPlantsList.get(position);
+        DatabaseReference userPlants = UtilsFireBase.getPlantReference(plant.getId());
+        userPlants.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Plant newPlant = dataSnapshot.getValue(Plant.class);
+                assert newPlant != null;
+                mPlantsList.get(position).update(newPlant);
+                notifyItemChanged(position);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

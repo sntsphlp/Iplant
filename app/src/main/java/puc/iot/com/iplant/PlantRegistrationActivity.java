@@ -3,11 +3,15 @@ package puc.iot.com.iplant;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +20,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PlantRegistrationActivity extends AppCompatActivity {
 
@@ -31,6 +41,10 @@ public class PlantRegistrationActivity extends AppCompatActivity {
     private CoordinatorLayout content;
     private DatabaseReference mDatabase;
     private String userId;
+    private List<String> mTypes;
+    private Plant mPlant;
+    private boolean mIsNew=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +96,25 @@ public class PlantRegistrationActivity extends AppCompatActivity {
                     save();
             }
         });
+        editTextEquipmentCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String equipmentCode = s.toString();
+                if (equipmentCode.length()>=8)
+                    getValues(equipmentCode);
+            }
+        });
+        getTypes();
     }
 
     private void save() {
@@ -105,9 +138,12 @@ public class PlantRegistrationActivity extends AppCompatActivity {
             plant.setType(plantType);
         }
         plant.setHumidity(0f);
-        UtilsFireBase.getPlantsReference(mDatabase).child(equipmentCode).child(userId).setValue(userId);
-        UtilsFireBase.getUserPlantsReference(mDatabase,userId).child(equipmentCode).setValue(plant);
-
+        UtilsFireBase.getPlantsReference().child(equipmentCode).child(userId).setValue(userId);
+        UtilsFireBase.getUserPlantsReference(userId).child(equipmentCode).setValue(plant);
+        if (mTypes!=null){
+            if (!mTypes.contains(plantType))
+            UtilsFireBase.getPlantsTypesReference().push().setValue(plantType);
+        }
     }
 
     private void makeSnackBar(int value) {
@@ -124,6 +160,7 @@ public class PlantRegistrationActivity extends AppCompatActivity {
                 if (resultCode==RESULT_OK){
                     String equipmentCode=data.getExtras().getString(QRCodeScannerActivity.RESULT_ACTIVITY);
                     editTextEquipmentCode.setText(equipmentCode);
+                    getValues(equipmentCode);
                 }else {
                     Toast.makeText(this,"Cancel",Toast.LENGTH_LONG).show();
                 }
@@ -135,5 +172,44 @@ public class PlantRegistrationActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void getTypes() {
+        UtilsFireBase.getPlantsTypesReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] types = dataSnapshot.getValue(String[].class);
+                if (types!=null) {
+                    mTypes = Arrays.asList(types);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+                            android.R.layout.simple_dropdown_item_1line, types);
+                    aCTextViewPlantType.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void getValues(String equipmentCode) {
+        UtilsFireBase.getPlantReference(equipmentCode).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Plant plant = dataSnapshot.getValue(Plant.class);
+                if (plant!=null) {
+                    mPlant = plant;
+                    editTextName.setText(plant.getName());
+                    aCTextViewPlantType.setText(plant.getType());
+                    mIsNew = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -26,7 +26,7 @@ public class PlantActivity extends AppCompatActivity {
         textViewLastWater = findViewById(R.id.textViewLastWater);
         textViewStatus = findViewById(R.id.textViewStatus);
         toggleButton = findViewById(R.id.toggleButton);
-        toolbar.setTitle("kjhjh");
+        //toolbar.setTitle("Nome");
         Intent intent = getIntent();
         if (intent.hasExtra("id")){
             id=intent.getExtras().getString("id");
