@@ -30,9 +30,15 @@
     <string name="background" translatable="false">Background</string>
     <string name="plant_registration">Plant registration</string>
     <string name="login_error">Login error</string>
-    <string name="wrong_equipment_code">Wrong equipamento code</string>
     <string name="equipment_code_is_required">Equipment code is required</string>
     <string name="plant_name_is_required">Plant name is required</string>
     <string name="dry">Dry</string>
     <string name="title_activity_main">Plant list</string>
+    <string name="your_plant_wants_water">Your plant wants water</string>
+    <string name="wrong_equipment_code">Wrong code</string>
+    <string name="your_plant_is_fine">Your plant is fine</string>
+    <string name="lots_of_water">Lots of water, is it raining?</string>
+    <string name="watering_but_still_needs_more_water">Watering, but still needs more water</string>
+    <string name="watering_you_can_turn_off_the_tap">Watering, you can turn off the tap</string>
+    <string name="turn_off_the_tap_theres_plenty_of_water">Turn off the tap, there\'s plenty of water!</string>
 </resources>

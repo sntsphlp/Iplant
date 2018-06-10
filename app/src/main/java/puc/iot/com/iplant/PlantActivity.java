@@ -3,6 +3,7 @@ package puc.iot.com.iplant;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -113,7 +114,21 @@ public class PlantActivity extends AppCompatActivity {
 
 
     private String getStatusString(int status) {
-        return "Implementar";
+        String value="";
+        if (status==Plant.DRY){
+            value = getString(R.string.your_plant_wants_water);
+        }else if (status==Plant.NORMAL){
+            value = getString(R.string.your_plant_is_fine);
+        }else if (status==Plant.HUMID){
+            value = getString(R.string.lots_of_water);
+        }else if (status==Plant.WATERING_DRY){
+            value = getString(R.string.watering_but_still_needs_more_water);
+        }else if (status==Plant.WATERING_NORMAL){
+            value = getString(R.string.watering_you_can_turn_off_the_tap);
+        }else if (status==Plant.WATERING_HUMID){
+            value = getString(R.string.turn_off_the_tap_theres_plenty_of_water);
+        }
+        return value;
     }
     private void setBackGround(int status){
         if (status==Plant.DRY){
@@ -122,6 +137,8 @@ public class PlantActivity extends AppCompatActivity {
             imageViewGround.setImageResource(R.drawable.normal_ground);
         }else if (status==Plant.HUMID){
             imageViewGround.setImageResource(R.drawable.humid_ground);
+        }else if (status==Plant.WATERING_DRY){
+            imageViewGround.setImageResource(R.drawable.water_ground);
         }else if (status==Plant.WATERING_NORMAL){
             imageViewGround.setImageResource(R.drawable.water_ground);
         }else if (status==Plant.WATERING_HUMID){
