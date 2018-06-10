@@ -46,25 +46,32 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewAppIcon.animate().alpha(1f).scaleY(1f).scaleX(1f).setDuration(500);
         if(mAuth!=null){
             FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser!=null)
             logged(currentUser,true);
+            else
+                showLogin();
         }else {
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-            SignInButton signInButton = findViewById(R.id.sign_in_button);
-            findViewById(R.id.textViewLogin).setVisibility(View.VISIBLE);
-            signInButton.setSize(SignInButton.SIZE_STANDARD);
-            signInButton.setVisibility(View.VISIBLE);
-            signInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
-                }
-            });
+            showLogin();
         }
+    }
+
+    private void showLogin() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        findViewById(R.id.textViewLogin).setVisibility(View.VISIBLE);
+        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        signInButton.setVisibility(View.VISIBLE);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
     }
 
     @Override
